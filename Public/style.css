@@ -69,11 +69,11 @@ div.secondmain{
     align-items: center;
     justify-content: flex-start;
     background-color: #ffffff;
-min-width: 330px;
+width: 390px;
 height: fit-content;  /* 60% */
 border-radius: 10px;
 gap: 13px;
-padding: 10px;
+padding: 14px;
 }
 
 h3{
@@ -136,6 +136,27 @@ div.content{
     margin-top: 16px;
 }
 
+.alert {
+    position: fixed;
+    top: 20%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    width: 27%;
+    padding: 10px;
+    background-color: #3a3aff;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    transition: opacity 0.5s;
+    border-radius: 5px;
+    z-index: 9999;
+  }
+  
+  .alert.hide {
+    opacity: 0;
+  }
+
+
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,9 +198,78 @@ button.deleteButton{
 
 
 
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+//////////////         media query   //////////////////*/
+
+@media all and (max-width:440px) and (min-width:410px) {
+    
+div.secondmain{
+width: 360px;
+padding: 14px;
+}
+
+div.inputs{
+    display: flex;
+    gap: 4px;
+}
+input.input{
+   
+    width: 16.5rem;
+height: 35px;
+font-size: 18px;
+padding-left: 5px;
+}
 
 
+}
 
+
+@media all and (max-width:410px) and (min-width:375px) {
+    
+    div.secondmain{
+    width: 300px;
+    padding: 14px;
+    }
+    
+    div.inputs{
+        display: flex;
+        gap: 4px;
+    }
+    input.input{
+       
+        width: 13.5rem;
+    font-size: 16px;
+    padding-left: 5px;
+    }
+    
+    
+    }
+    
+
+    @media all and (max-width:375px) and (min-width:320px) {
+    
+        div.secondmain{
+        width: 250px;
+        padding: 14px;
+        }
+        
+        div.inputs{
+            display: flex;
+            gap: 4px;
+        }
+        input.input{
+           
+            width: 11rem;
+        font-size: 14.5px;
+        padding-left: 5px;
+        }
+        
+        
+        }
+        
+    
 
 
 

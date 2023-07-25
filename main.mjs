@@ -11,13 +11,13 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
-// Serve the public folder for the frontend
+
 app.use('/', express.static(path.join(__dirname, 'Public')))
 
-// Use the API routes from api1
+// Useing the API routes from api1
 app.use('/Api1', api1Router);
 
-// Start the server
+
 const port = 3004;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

@@ -1,13 +1,18 @@
-// routes/todo.mjs
+
 import express from 'express';
 import { nanoid } from 'nanoid';
 const router = express.Router();
 
+
+//  local variable but in case of database we will use database not this 
 let todos = [{
     id: nanoid(),
     task: "",
     completed: false
 }];
+
+
+///////////////////////////////            post http method 
 
 router.post('/todo', (req, res, next) => {
     if (!req.body.task) {
@@ -25,6 +30,10 @@ router.post('/todo', (req, res, next) => {
     res.send('Todo added successfully');
 });
 
+
+///////////////////////////////            get http method 
+
+
 router.get('/todo/:todoId', (req, res, next) => {
     const todoId = req.params.todoId;
 
@@ -41,6 +50,11 @@ router.get('/todos', (req, res, next) => {
     res.send(todos);
 });
 
+
+
+///////////////////////////////            delete http method 
+
+
 router.delete('/todo/:todoId', (req, res, next) => {
     const todoId = req.params.todoId;
 
@@ -53,6 +67,9 @@ router.delete('/todo/:todoId', (req, res, next) => {
         res.status(404).send('Todo not found');
     }
 });
+
+///////////////////////////////            put http method 
+
 
 router.put('/todo/:todoId', (req, res, next) => {
     const todoId = req.params.todoId;
@@ -76,3 +93,4 @@ router.put('/todo/:todoId', (req, res, next) => {
 });
 
 export default router;
+

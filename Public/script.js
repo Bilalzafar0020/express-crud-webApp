@@ -1,4 +1,46 @@
-// script.js
+  // alert message 
+  function showAlert(message, type) {
+    const alertContainer = document.getElementById('alertContainer');
+  
+    const alert = document.createElement('div');
+    alert.classList.add('alert');
+    alert.textContent = message;
+  
+    alertContainer.appendChild(alert);
+  
+    setTimeout(() => {
+      alert.classList.add('hide');
+      setTimeout(() => {
+        alert.remove();
+      }, 500);
+    }, 2000);
+  }
+  
+
+// Sticky alert   ( so that alert should be responsive)
+window.addEventListener('scroll', function () {
+  const alertContainer = document.getElementById('alertContainer');
+  const alert = alertContainer.querySelector('.alert');
+  if (alert) {
+    const alertHeight = alert.offsetHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    const windowBottom = scrollTop + windowHeight;
+
+    if (windowBottom > alertContainer.offsetTop + alertHeight) {
+      alert.classList.add('sticky');
+    } else {
+      alert.classList.remove('sticky');
+    }
+  }
+});
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const contentDiv = document.getElementById('content');
     const inputElement = document.querySelector('.input');
@@ -9,16 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const task = inputElement.value.trim();
 
         if (task === '') {
-            alert('Please enter a task.');
+           showAlert('Please enter a task.');
             return;
         }
 
         axios.post('/Api1/todo', { task })
             .then(() => {
                 inputElement.value = '';
-                fetchTodos(); // Call the fetchTodos function after adding a new todo
+                fetchTodos(); // Calling  the fetchTodos function after adding a new todo
             })
-            .catch(error => console.error(error));
+            .catch(error => showAlert(error));
     };
 
     // Function to fetch all todos from the server and display them in the content div
@@ -27,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 const todos = response.data;
 
-                // Clear the content div before adding new TODOs
+                // Clearing the content div before adding new TODOs
                 contentDiv.innerHTML = '';
 
                 todos.forEach(todo => {
@@ -69,16 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             
             })   
-            .catch(error => console.error(error));
+
+            .catch(error => showAlert(error) );
     };
 
-    // Fetch todos when the page loads
+ //  so that the above function should call when ever the page loads/refresh because of Domcontentloaded
     fetchTodos();
 
-    // Add event listener to the Add button
     addButton.addEventListener('click', addTodo);
 
-    // Function to edit a todo on the server and update the UI
+    
    // Function to edit a todo on the server and update the UI
 const editTodo = (todoId, inputElement) => {
     Swal.fire({
@@ -94,24 +136,51 @@ const editTodo = (todoId, inputElement) => {
             }
             return newTask.trim();
         },
-    }).then((result) => {
+    })
+    
+    .then((result) => {
         if (!result.isConfirmed) {
-            return; // User clicked Cancel or closed the dialog
+            return; 
         }
 
         const newTask = result.value;
 
         axios.put(`/Api1/todo/${todoId}`, { task: newTask })
-            .then(() => fetchTodos())
-            .catch(error => console.error(error));
-    });
+        
+        .then(() => {
+            fetchTodos();
+            showAlert('Todo edited successfully.', 'success');
+        })
+
+        .catch(error => {
+            showAlert('Error editing todo.', 'error');
+            console.error(error);
+        });
+
+});
+
 };
 
 
     // Function to delete a todo from the server and update the UI
     const deleteTodo = (todoId) => {
+
         axios.delete(`/Api1/todo/${todoId}`)
-            .then(() => fetchTodos())
-            .catch(error => console.error(error));
+
+            .then(() => {
+            
+            
+            fetchTodos();
+
+               showAlert('Todo deleted successfully.');
+
+
+    })
+
+
+            .catch(error => showAlert(error) );
+
     };
+
+
 });

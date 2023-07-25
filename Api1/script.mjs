@@ -1,4 +1,4 @@
-// api1/script.mjs
+
 import express from 'express';
 const router = express.Router();
 
